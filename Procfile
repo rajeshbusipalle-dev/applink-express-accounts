@@ -1,0 +1,1 @@
+web: heroku-applink-service-mesh npm start

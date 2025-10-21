@@ -1,0 +1,78 @@
+# JJ AppLink Express Accounts
+
+Plain Express app to get simple query from AppLink<br/>
+<br/>
+
+Assumes you have a throw-away Salesforce org that is enabled for Heroku Applink.<br/>
+<br/>
+
+The only changes to make this work with [AppLink Service Mesh](https://github.com/heroku/heroku-buildpack-heroku-applink-service-mesh) are:
+* add the service mesh buildpack
+* add Heroku config var APP_PORT
+* adjust the Procfile to launch service mesh
+* in code, bind Express to $APP_PORT
+<br/>
+
+## Read First
+
+*DISCLAIMER* -- This is a demo, not production code. Feel free to consult the code and use it to fuel your own ideas, but please do not assume it's ready to plug into a production environment as-is.<BR>
+<br/>
+
+---
+
+## Setup
+
+```
+heroku create jj-applink-express-accounts
+```
+
+```
+heroku buildpacks:add heroku/heroku-applink-service-mesh
+```
+
+```
+heroku buildpacks:add heroku/nodejs
+```
+
+```
+heroku addons:create heroku-applink
+```
+
+```
+heroku config:set APP_PORT=3000
+```
+
+```
+git push heroku main
+```
+
+(Set permset for Manage Applink)
+
+```
+heroku salesforce:connect MyOrg
+```
+
+```
+heroku salesforce:publish api-spec.yaml --client-name=HerokuAPI --authorization-connected-app-name=ApplinkAccountsAccessConnectedApp --connection-name=MyOrg
+```
+
+(Set HerokuAPI permset)<br/>
+<br/>
+
+## Testing
+
+Run this anonymous Apex:
+```
+herokuapplink.HerokuAPI herokuAPI = new herokuapplink.HerokuAPI();
+herokuapplink.HerokuAPI.GetAccounts_Response response = herokuAPI.GetAccounts();
+System.debug(JSON.serializePretty(response));
+```
+<br/>
+
+## Cleanup
+
+Delete the Heroku app in the web dashboard or use this command:
+
+```
+heroku destroy
+```
