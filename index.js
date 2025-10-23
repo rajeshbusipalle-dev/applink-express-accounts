@@ -1,28 +1,17 @@
 const PORT = process.env.APP_PORT || 3000
-const jsforce = require('jsforce')
+const applinkSDK = require('@heroku/applink');
 const express = require('express')
 const app = express()
 
 app.use(express.json())
 
 app.get('/accounts', async (req, res) => {
-    const context_header = req.header('x-client-context');
-    const context = getContext(context_header);
+    const sf = getSalesforceConnection(req);
 
-    const sf = getSalesforceConnection(context);
-    const query = "SELECT Id, Name FROM Account LIMIT 10";
+    const queryString = "SELECT Id, Name FROM Account LIMIT 10";
 
-    const queryResult = await sf.query(query);
-    const records = queryResult.records;
-
-    var outAccounts = [];
-    records.forEach(r => {
-        outAccounts.push({
-            id: r.Id,
-            name: r.Name
-        });
-
-    });
+    const queryResult = await sf.query(queryString);
+    const outAccounts = queryResult.records.map(rec => rec.fields);
 
     res.json(outAccounts);
 })
@@ -31,15 +20,13 @@ app.listen(PORT, () => {
     console.log(`Listening on ${ PORT }`)
 })
 
-function getContext(header) {
-    const decodedHeader = Buffer.from(header, "base64").toString("utf8");
-    const context = JSON.parse(decodedHeader);
-    return context;
-}
 
-function getSalesforceConnection(context) {
-    return new jsforce.Connection({
-        instanceUrl: context.orgDomainUrl,
-        accessToken: context.accessToken
-    });
+function getSalesforceConnection(request) {
+    const applink = applinkSDK.init();
+    const parsedRequest = applink.salesforce.parseRequest(
+        request.headers,
+        request.body,
+        null
+    );
+    return parsedRequest.context.org.dataApi;
 }
