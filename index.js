@@ -16,6 +16,8 @@ app.get('/accounts', async (req, res) => {
     res.json(outAccounts);
 })
 
+
+
 app.listen(PORT, () => {
     console.log(`Listening on ${ PORT }`)
 })
