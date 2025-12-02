@@ -8,7 +8,7 @@ app.use(express.json())
 app.get('/accounts', async (req, res) => {
     const sf = applinkSDK.parseRequest(req.headers, req.body, null).context.org.dataApi;
 
-    const queryString = "SELECT Id, Name FROM Account LIMIT 10";
+    const queryString = "SELECT Id, Name,Business_Type__c FROM Account LIMIT 10";
 
     const queryResult = await sf.query(queryString);
     const outAccounts = queryResult.records.map(rec => rec.fields);
