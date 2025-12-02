@@ -28,6 +28,7 @@ components:
   schemas:
     Account:
       type: object
+      additionalProperties: true
       properties:
         id:
           type: string
@@ -35,4 +36,4 @@ components:
         name:
           type: string
           example: 'Test Account'
-        additionalProperties: true
+        
