@@ -29,11 +29,3 @@ components:
     Account:
       type: object
       additionalProperties: true
-      properties:
-        id:
-          type: string
-          example: '001...'
-        name:
-          type: string
-          example: 'Test Account'
-        
