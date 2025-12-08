@@ -4,6 +4,79 @@ info:
   title: Heroku-Salesforce API
   description: Sample Heroku app exposing APIs to connected Salesforce and Data Cloud orgs.
 paths:
+  /syncAllocations:
+      post:
+        summary: Sync LAER allocations with Salesforce
+        description: Takes LAER records and LAERWithOppWrapper data and updates/creates/deletes allocations in Salesforce.
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - laerRecords
+                  - listLAERWrapperwithOpp
+                properties:
+                  laerRecords:
+                    type: array
+                    description: List of LAER_Table__c records
+                    items:
+                      type: object
+                      properties:
+                        Id:
+                          type: string
+                        Name:
+                          type: string
+                        Opportunity__c:
+                          type: string
+                        Deal_Event_Roll_Down_Active__c:
+                          type: boolean
+                        PU_Std_ACV_Growth_Rate__c:
+                          type: number
+                        T2X_Expiring_ACV__c:
+                          type: number
+                        Perp2SaaS_Expiring_ACV__c:
+                          type: number
+                        Total_T2X_Expiring_ACV__c:
+                          type: number
+                        Total_Perp2SaaS_Expiring_ACV__c:
+                          type: number
+                        # Add other LAER fields as needed
+                  listLAERWrapperwithOpp:
+                    type: array
+                    description: List of LAERWithOppWrapper objects
+                    items:
+                      type: object
+                      properties:
+                        OppId:
+                          type: string
+                        isDealEventRolldown:
+                          type: boolean
+        responses:
+          '200':
+            description: Allocations synced successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    upserted:
+                      type: array
+                      description: List of upserted allocation IDs
+                      items:
+                        type: string
+                    deleted:
+                      type: array
+                      description: List of deleted allocation IDs
+                      items:
+                        type: string
+          '400':
+            description: Invalid input
+          '500':
+            description: Internal server error
+
+            
   /accounts:
     get:
       tags:
@@ -29,3 +102,5 @@ components:
     Account:
       type: object
       additionalProperties: true
+
+
