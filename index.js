@@ -9,19 +9,18 @@ const PORT = process.env.PORT || 3000;
 // ---------------------------------------------
 // Initialize AppLink (OAuth 3.0 Salesforce Auth)
 // ---------------------------------------------
-/*const applink = new AppLink({
+const applink = new AppLink({
     // These come from Heroku App Config Vars (auto provided by AppLink)
     clientId: process.env.APPLINK_CLIENT_ID,
     clientSecret: process.env.APPLINK_CLIENT_SECRET,
     applinkAppId: process.env.APPLINK_APP_ID
-});*/
+});
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json());
 
-// ------------------ Test route ------------------
 app.get('/accounts', async (req, res) => {
-    const sf = applinkSDK.parseRequest(req.headers, req.body, null).context.org.dataApi;
+    const sf = AppLink.parseRequest(req.headers, req.body, null).context.org.dataApi;
 
     const queryString = "SELECT Id, Name,Business_Type__c,Type FROM Account LIMIT 10";
 
@@ -30,7 +29,6 @@ app.get('/accounts', async (req, res) => {
 
     res.json(outAccounts);
 })
-
 
 // ----------------------------------------------------------
 // Middleware: Automatically get Salesforce Access Token
