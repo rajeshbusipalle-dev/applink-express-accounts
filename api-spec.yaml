@@ -22,37 +22,12 @@ paths:
                     type: array
                     description: List of LAER_Table__c records
                     items:
-                      type: object
-                      properties:
-                        Id:
-                          type: string
-                        Name:
-                          type: string
-                        Opportunity__c:
-                          type: string
-                        Deal_Event_Roll_Down_Active__c:
-                          type: boolean
-                        PU_Std_ACV_Growth_Rate__c:
-                          type: number
-                        T2X_Expiring_ACV__c:
-                          type: number
-                        Perp2SaaS_Expiring_ACV__c:
-                          type: number
-                        Total_T2X_Expiring_ACV__c:
-                          type: number
-                        Total_Perp2SaaS_Expiring_ACV__c:
-                          type: number
-                        # Add other LAER fields as needed
+                      $ref: '#/components/schemas/LAER_Table'
                   listLAERWrapperwithOpp:
                     type: array
                     description: List of LAERWithOppWrapper objects
                     items:
-                      type: object
-                      properties:
-                        OppId:
-                          type: string
-                        isDealEventRolldown:
-                          type: boolean
+                      $ref: '#/components/schemas/LAERWithOppWrapper'
         responses:
           '200':
             description: Allocations synced successfully
@@ -101,6 +76,298 @@ components:
   schemas:
     Account:
       type: object
+      additionalProperties: true
+
+    LAER_Table__c:
+      type: object
+      additionalProperties: true
+
+    # Main Wrapper for LAER With Opportunity
+    LAERWithOppWrapper:
+      type: object
+      properties:
+        dealIdKey:
+          type: string
+        dealIdKeyOppsList:
+          type: array
+          items:
+            type: string
+        OppId:
+          type: string
+        Opp_Subscription_Start_Date:
+          type: string
+          format: date
+        Opp_CloseDate:
+          type: string
+          format: date
+        Opp_AccountCountry:
+          type: string
+        Opp_Indirect_Direct_Lead:
+          type: string
+        renewal_percentage:
+          type: number
+        expand_percentage:
+          type: number
+        addOn_Percentage:
+          type: number
+        land_Percentage:
+          type: number
+        opportunityrenewalrate:
+          type: number
+        opportunityacvgrowth:
+          type: number
+        alctn_renewal_percentage:
+          type: number
+        alctn_expand_percentage:
+          type: number
+        alctn_addOn_Percentage:
+          type: number
+        alctn_land_Percentage:
+          type: number
+        alctn_opportunityrenewalrate:
+          type: number
+        alctn_opportunityacvgrowth:
+          type: number
+        alctn_p2s_renewal_percentage:
+          type: number
+        alctn_p2s_expand_percentage:
+          type: number
+        alctn_p2s_addOn_Percentage:
+          type: number
+        alctn_p2s_land_Percentage:
+          type: number
+        alctn_p2s_opportunityrenewalrate:
+          type: number
+        alctn_p2s_opportunityacvgrowth:
+          type: number
+        p2s_renewal_percentage:
+          type: number
+        p2s_expand_percentage:
+          type: number
+        p2s_addOn_Percentage:
+          type: number
+        p2s_opportunityrenewalrate:
+          type: number
+        p2s_opportunityacvgrowth:
+          type: number
+        p2s_land_Percentage:
+          type: number
+        t2x_renewal_percentage:
+          type: number
+        t2x_expand_percentage:
+          type: number
+        t2x_addOn_Percentage:
+          type: number
+        t2x_land_Percentage:
+          type: number
+        t2x_opportunityrenewalrate:
+          type: number
+        t2x_opportunityacvgrowth:
+          type: number
+        t2x_populateAlctnRecords:
+          type: boolean
+        alctn_t2x_renewal_percentage:
+          type: number
+        alctn_t2x_expand_percentage:
+          type: number
+        alctn_t2x_addOn_Percentage:
+          type: number
+        alctn_t2x_land_Percentage:
+          type: number
+        alctn_t2x_opportunityrenewalrate:
+          type: number
+        alctn_t2x_opportunityacvgrowth:
+          type: number
+        mendix_baseRenewal_percentage:
+          type: number
+        mendix_renewalExpand_percentage:
+          type: number
+        mendix_porductExpand_Percentage:
+          type: number
+        mendix_landAddon_Percentage:
+          type: number
+        mendix_opportunityrenewalrate:
+          type: number
+        mendix_opportunityacvgrowth:
+          type: number
+        mendix_populateAlctnRecords:
+          type: boolean
+        expiringacv:
+          type: number
+        expiringFLIPACV:
+          type: number
+        Expiring12MthsEquivalent:
+          type: number
+        TOTAL_FLIPEXP_ACV:
+          type: number
+        TOTAL_FLIPEXP_TCV:
+          type: number
+        TOTAL_HSAS_ACV:
+          type: number
+        TOTAL_HSAS_TCV:
+          type: number
+        Total_Cloud:
+          type: number
+        Total_Process_B_via_LSDA:
+          type: number
+        Total_SAAS_Operations:
+          type: number
+        isaddon:
+          type: boolean
+        currencyIsoCode:
+          type: string
+        listLAERWrapper:
+          type: array
+          items:
+            $ref: '#/components/schemas/LAERWrapper'
+        listLAERWrapperActual:
+          type: array
+          items:
+            $ref: '#/components/schemas/LAERWrapper'
+        listLAERWrapperNew:
+          type: array
+          items:
+            $ref: '#/components/schemas/LAERWrapper'
+        isnew:
+          type: boolean
+        isSecondaryopp:
+          type: boolean
+        ContractId:
+          type: string
+        isConvertedopp:
+          type: boolean
+        convertedOpptyMap:
+          type: object
+          additionalProperties: true
+        isReplacementProduct:
+          type: boolean
+        isT2XReplacementProduct:
+          type: boolean
+        noSapLines:
+          type: boolean
+        isConversionOppType:
+          type: boolean
+        oppType:
+          type: string
+        isDealEventRolldown:
+          type: boolean
+        RenewalRateDealEvent:
+          type: number
+        GrowthRateDealEvent:
+          type: number
+        PU_Cloud_SaaS_TCV:
+          type: number
+        PU_Cloud_SaaS_ACV:
+          type: number
+        PU_Cloud_SaaS_Expiring_TCV:
+          type: number
+        PU_Cloud_SaaS_Expiring_ACV:
+          type: number
+        t2x_expiringacvPerp:
+          type: number
+      additionalProperties: true
+
+    # Nested LAERWrapper class
+    LAERWrapper:
+      type: object
+      properties:
+        Business_Segment:
+          type: string
+        Current_TCV:
+          type: number
+        Current_Period:
+          type: integer
+        Pervious_TCV:
+          type: number
+        Previous_Period:
+          type: integer
+        Land_TCV:
+          type: number
+        Renewal_TCV:
+          type: number
+        Expand_TCV:
+          type: number
+        NewSeg_TCV:
+          type: number
+        Contraction_ACV:
+          type: number
+        NetActual_ACV:
+          type: number
+        FLIPEXP_ACV:
+          type: number
+        FLIPEXP_TCV:
+          type: number
+        Exp_TCV:
+          type: number
+        HSAS_ACV:
+          type: number
+        HSAS_TCV:
+          type: number
+        OPP_TCV:
+          type: number
+        SEC_Amount1:
+          type: number
+        SEC_Amount2:
+          type: number
+        mapLaerTotalComments:
+          type: object
+          additionalProperties: true
+        mapLaertotalwithValue:
+          type: object
+          additionalProperties: true
+        mapLaertotalwithInstallValue:
+          type: object
+          additionalProperties: true
+        convertedOpp:
+          type: boolean
+        isSapP2X:
+          type: boolean
+        isSapT2X:
+          type: boolean
+        sapHasZeroPeriod:
+          type: boolean
+        RenewalPercentage:
+          type: number
+        NetNewWeighategPercentage:
+          type: number
+        ExpandPercentage:
+          type: number
+        ContractionPercentage:
+          type: number
+        ProductExpandPercentage:
+          type: number
+        RenewalRateDealEvent:
+          type: number
+        GrowthRateDealEvent:
+          type: number
+        PU_Cloud_SaaS_TCV:
+          type: number
+        PU_Cloud_SaaS_ACV:
+          type: number
+        PU_Cloud_SaaS_Expiring_TCV:
+          type: number
+        PU_Cloud_SaaS_Expiring_ACV:
+          type: number
+        PU_T2X_Exp_ACV_from_Perpetual:
+          type: number
+        PU_T2X_Exp_ACV_from_HSaaS:
+          type: number
+        PU_T2X_Exp_ACV_from_Subscription:
+          type: number
+      additionalProperties: true
+
+    # Simple percentage wrapper
+    percentageWrapperClass:
+      type: object
+      properties:
+        RenewalPercentage:
+          type: number
+        ExpandPercentage:
+          type: number
+        ContractionPercentage:
+          type: number
+        ProductExpandPercentage:
+          type: number
       additionalProperties: true
 
 
