@@ -1,4 +1,4 @@
-const applink = require('@heroku/applink-sdk'); // Assuming AppLink SDK is installed
+const applink = require('@heroku/applink'); // Assuming AppLink SDK is installed
 
 /**
  * Compute Secondary Compensation based on wrapper and metadata

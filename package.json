@@ -12,7 +12,6 @@
   "description": "Heroku AppLink Sample App with Node.js and Express",
   "dependencies": {
     "@heroku/applink": "^1.0.0",
-    "@heroku/applink-sdk": "^1.0.0",
     "express": "^5.1.0"
   }
 }

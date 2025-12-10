@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { syncAllocationsFromLAER } = require('./syncAllocations');
-const { AppLink } = require('@heroku/applink-sdk');   // OAuth 3.0 AppLink SDK
+const { AppLink } = require('@heroku/applink');   // OAuth 3.0 AppLink SDK
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,12 +9,12 @@ const PORT = process.env.PORT || 3000;
 // ---------------------------------------------
 // Initialize AppLink (OAuth 3.0 Salesforce Auth)
 // ---------------------------------------------
-const applink = new AppLink({
+/*const applink = new AppLink({
     // These come from Heroku App Config Vars (auto provided by AppLink)
     clientId: process.env.APPLINK_CLIENT_ID,
     clientSecret: process.env.APPLINK_CLIENT_SECRET,
     applinkAppId: process.env.APPLINK_APP_ID
-});
+});*/
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json());
