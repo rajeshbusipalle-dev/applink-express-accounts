@@ -22,7 +22,7 @@ paths:
                     type: array
                     description: List of LAER_Table__c records
                     items:
-                      $ref: '#/components/schemas/LAER_Table'
+                      $ref: '#/components/schemas/LAER_Table__c'
                   listLAERWrapperwithOpp:
                     type: array
                     description: List of LAERWithOppWrapper objects
