@@ -1,13 +1,17 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Heroku-Salesforce API
+  title: Heroku-Salesforce API V2
   description: Sample Heroku app exposing APIs to connected Salesforce and Data Cloud orgs.
 paths:
   /syncAllocations:
       post:
         summary: Sync LAER allocations with Salesforce
         description: Takes LAER records and LAERWithOppWrapper data and updates/creates/deletes allocations in Salesforce.
+        x-sfdc:
+          heroku:
+            authorization:
+              connectedApp: 'HerokuLaerModuleConnectedApp'
         requestBody:
           required: true
           content:
@@ -62,7 +66,7 @@ paths:
       x-sfdc:
         heroku:
           authorization:
-            connectedApp: 'HerokuLaerConnectedApp'
+            connectedApp: 'HerokuLaerModuleConnectedApp'
       responses:
         '200':
           description: Successfully returned a list of Accounts
