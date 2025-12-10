@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { syncAllocationsFromLAER } = require('./syncAllocations');
-const { AppLink } = require('@heroku/applink');   // OAuth 3.0 AppLink SDK
+const AppLink = require('@heroku/applink');   // OAuth 3.0 AppLink SDK
 
 const app = express();
 const PORT = process.env.PORT || 3000;
