@@ -1,80 +1,104 @@
+/**
+ * index.js
+ * Express entry point for Salesforce → Heroku AppLink
+ */
 const PORT = process.env.APP_PORT || 3000
-const applinkSDK = require('@heroku/applink')
-const express = require('express')
-const app = express()
-const { syncAllocationsFromLAER } = require('./syncAllocations');
-app.use(express.json())
+const express = require('express');
+const applink = require('@heroku/applink');
+const { calculateLAERTotalfields } = require('./laerFutureController');
+const app = express();
 
-// ---------------------------------------------
-// Initialize AppLink (OAuth 3.0 Salesforce Auth)
-// ---------------------------------------------
-const applink = new applinkSDK({
-    // These come from Heroku App Config Vars (auto provided by AppLink)
-    clientId: process.env.APPLINK_CLIENT_ID,
-    clientSecret: process.env.APPLINK_CLIENT_SECRET,
-    applinkAppId: process.env.APPLINK_APP_ID
-});
+/**
+ * IMPORTANT:
+ * Salesforce External Services send JSON
+ * Body must be parsed BEFORE AppLink middleware
+ */
+app.use(express.json());
 
-// Middleware to parse JSON request bodies
-app.use(bodyParser.json());
+/**
+ * AppLink middleware
+ * This attaches applinkContext to the request
+ */
+app.use(applink.middleware());
 
-app.get('/accounts', async (req, res) => {
-    const sf = applinkSDK.parseRequest(req.headers, req.body, null).context.org.dataApi;
 
-    const queryString = "SELECT Id, Name,Business_Type__c,Type FROM Account LIMIT 10";
+app.get('/accounts', async (request, res) => {
+    console.log('@@@',request.body);
+    console.log('@@@',request.headers);
+    
+    request.sdk = applink.init();
+    console.log('@@@',request.sdk);
+    
+    const queryString = "SELECT Id, Name FROM Account LIMIT 10";
 
-    const queryResult = await sf.query(queryString);
+    const sf = applink.parseRequest(request.headers, request.body, null);//.context.org.dataApi;
+    console.log('@@@sf',sf);
+    const org = sf.context.org;
+    console.log('@@@org',org);
+    
+
+    const queryResult = await org.dataApi.query(queryString); //sf.query(queryString);
     const outAccounts = queryResult.records.map(rec => rec.fields);
-
+    console.log('@@@outAccounts: ',request.headers);
     res.json(outAccounts);
 })
 
-// ----------------------------------------------------------
-// Middleware: Automatically get Salesforce Access Token
-// ----------------------------------------------------------
-async function getSFConnection(req, res, next) {
-    try {
-        // Retrieves fresh token automatically (OAuth 3.0)
-        req.sf = await applink.getSalesforceConnection();
-
-        if (!req.sf) {
-            return res.status(401).json({ error: "Unable to authenticate to Salesforce (OAuth)" });
-        }
-
-        next();
-    } catch (err) {
-        console.error("OAuth Error:", err);
-        return res.status(500).json({ error: "OAuth authentication failed", details: err.message });
-    }
-}
 
 /**
- * POST /sync-allocations
- * Body: { laerRecords: [], listLAERWrapperwithOpp: [] }
+ * POST endpoint exposed to Salesforce External Services
  */
-app.post('/sync-allocations', getSFConnection, async (req, res) => {
-    const { laerRecords, listLAERWrapperwithOpp } = req.body;
-
-    if (!laerRecords || !listLAERWrapperwithOpp) {
-        return res.status(400).json({ error: 'Missing laerRecords or listLAERWrapperwithOpp in request body' });
-    }
-
+app.post('/calculateLAERTotalfields', async (req, res) => {
     try {
-        // Inject Salesforce OAuth connection for downstream usage
-        await syncAllocationsFromLAER(
-            laerRecords,
-            listLAERWrapperwithOpp,
-            req.sf      // <--- Use this inside your JS logic
-        );
+        const applinkContext = req.applinkContext;
 
-        res.json({ message: 'Allocations sync completed successfully (OAuth 3.0)' });
-    } catch (err) {
-        console.error('Error syncing allocations:', err);
-        res.status(500).json({ error: err.message });
+        if (!applinkContext) {
+            return res.status(400).json({
+                success: false,
+                message: 'Missing AppLink context'
+            });
+        }
+
+        const {
+            recId,
+            closeDate,
+            sobjectType,
+            dealId
+        } = req.body;
+
+        const result = await calculateLAERTotalfields({
+            applinkContext,
+            recId,
+            closeDate,
+            sobjectType,
+            dealId
+        });
+
+        return res.status(200).json({
+            success: true,
+            data: result
+        });
+
+    } catch (error) {
+        console.error('ERROR calculateLAERTotalfields:', error);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message || 'Internal Server Error'
+        });
     }
 });
 
-// --------------------- Start Server ---------------------
+/**
+ * Health check (optional but recommended)
+ */
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
+/**
+ * Heroku dyno port binding
+ */
+
 app.listen(PORT, () => {
-    console.log(`Server running with OAuth 3.0 on port ${PORT}`);
+    console.log(`AppLink Express server running on port ${PORT}`);
 });
