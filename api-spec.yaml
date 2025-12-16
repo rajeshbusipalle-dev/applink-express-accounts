@@ -11,7 +11,7 @@ paths:
       x-sfdc:
         heroku:
           authorization:
-            connectedApp: HerokuLaerConnectedApp
+            connectedApp: HerokuLaerModuleConnectedApp
       requestBody:
         required: true
         content:
