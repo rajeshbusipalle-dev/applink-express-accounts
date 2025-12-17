@@ -22,7 +22,7 @@ async function fetchOpportunities({
 
     //const sf = applink.salesforce(applinkContext);
     const sf = applinkContext.org.dataApi;
-    
+
     const whereConditions = [];
 
     if (oppId) {
@@ -78,8 +78,9 @@ async function fetchOpportunities({
         FROM Opportunity
         ${whereClause}
     `;
-
+    console.log('@@@ fetchOpportunities_query:',query);
     const res = await sf.query(query);
+    console.log('@@@ fetchOpportunities_res:',res);
     return res?.records || [];
 }
 
@@ -112,8 +113,9 @@ async function fetchContractLAER({
         FROM Contract
         WHERE Id = '${contractId}'
     `;
-
+    console.log('@@@ fetchContractLAER_query:',query);
     const res = await sf.query(query);
+    console.log('@@@ fetchContractLAER_res:',res);
     return res?.records?.[0] || null;
 }
 
