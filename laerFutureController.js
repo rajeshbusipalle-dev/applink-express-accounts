@@ -102,11 +102,14 @@ async function calculateLAERTotalfields({
         for (const oprodFields of oppProducts) {
             const oprod = oprodFields.fields;
             console.log('@@@ calculateLAERTotalfields.oppProducts.oprod:',oprod);
+            /*
             const rate = await getConvertedCurrency(
                 opp.CurrencyIsoCode,
                 oprod.CurrencyIsoCode,
                 opp.CloseDate
             );
+            */
+            const rate = 1;
 
             mapLaerTotalWithValue = calculateTotalOppProdFields(
                 mappingforTotals,
@@ -116,7 +119,7 @@ async function calculateLAERTotalfields({
                 opp.CloseDate
             );
         }
-
+        /*
         for (const liFields of installItems) {
             const li = liFields.fields;
             console.log('@@@ calculateLAERTotalfields.oppProducts.li:',li);
@@ -134,6 +137,7 @@ async function calculateLAERTotalfields({
                 opp.CloseDate
             );
         }
+        */
     }
 
     /* ---- Build LAER Record ---- */
