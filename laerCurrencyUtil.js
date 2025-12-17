@@ -3,7 +3,7 @@
  * Complete Apex-equivalent currency utility for Heroku AppLink
  */
 
-const applink = require('@heroku/applink-sdk');
+const applink = require('@heroku/applink');
 
 /* --------------------------------------------------------------------
  * Apex static variables equivalent
