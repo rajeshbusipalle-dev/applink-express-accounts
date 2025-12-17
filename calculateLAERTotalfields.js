@@ -16,11 +16,11 @@ function calculateTotalOppProdFields(mappingForTotals, mapLaerTotalWithValue, op
     let softwareProdPercentage = 0.5;
 
     if (closeDate >= FY25Start) {
-        softwareProdPercentage = ['China', 'Hong Kong'].includes(oprod.Opportunity__r?.Physical_Country__c) ? 1.0 : 0.25;
+        softwareProdPercentage = ['China', 'Hong Kong'].includes(oprod.Opportunity__r.fields?.Physical_Country__c) ? 1.0 : 0.25;
     } else if (closeDate > FY22Start) {
-        softwareProdPercentage = ['China', 'Hong Kong', 'Taiwan'].includes(oprod.Opportunity__r?.Physical_Country__c) ? 0.75 : 0.50;
+        softwareProdPercentage = ['China', 'Hong Kong', 'Taiwan'].includes(oprod.Opportunity__r.fields?.Physical_Country__c) ? 0.75 : 0.50;
     } else {
-        softwareProdPercentage = ['China', 'Hong Kong', 'Taiwan'].includes(oprod.Opportunity__r?.Physical_Country__c) ? 1.0 : 0.75;
+        softwareProdPercentage = ['China', 'Hong Kong', 'Taiwan'].includes(oprod.Opportunity__r.fields?.Physical_Country__c) ? 1.0 : 0.75;
     }
 
     // Step 3: Local portion ACV calculations
@@ -308,7 +308,7 @@ function calculateTotalInstallfields(mappingForTotals, mapLaerTotalWithValue, op
     putValue("T2X_Exp_ACV_from_Subscription__c", t2xExpACVfromSubscription);
 
     console.log('@@@ calculateTotalInstallfields_mapLaerTotalWithValue:',mapLaerTotalWithValue);
-    
+
     return mapLaerTotalWithValue;
 }
 
