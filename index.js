@@ -15,12 +15,6 @@ const app = express();
  */
 app.use(express.json());
 
-/**
- * AppLink middleware
- * This attaches applinkContext to the request
- */
-app.use(applink.middleware());
-
 
 app.get('/accounts', async (request, res) => {
     console.log('@@@',request.body);
