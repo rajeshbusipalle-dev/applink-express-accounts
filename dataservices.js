@@ -4,7 +4,7 @@
  */
 
 //const applink = require('@heroku/applink');
-const applink = require('@heroku/applink-sdk');
+//const applink = require('@heroku/applink-sdk');
 /**
  * Fetch Opportunities (Apex-parity SOQL)
  */
@@ -20,8 +20,9 @@ async function fetchOpportunities({
         throw new Error('Missing AppLink context');
     }
 
-    const sf = applink.salesforce(applinkContext);
-
+    //const sf = applink.salesforce(applinkContext);
+    const sf = applinkContext.org.dataApi;
+    
     const whereConditions = [];
 
     if (oppId) {
