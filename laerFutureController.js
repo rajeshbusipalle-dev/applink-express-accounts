@@ -97,8 +97,8 @@ async function calculateLAERTotalfields({
         const oppProducts = opp?.subQueryResults?.opportunity_products__r?.records || [];
         //const installItems = opp.SAP_Install_Line_Items__r?.records || [];
         const installItems = opp?.subQueryResults?.SAP_Install_Line_Items__r?.records || [];
-        console.log('@@@ calculateLAERTotalfields.oppProducts:',oppProducts);
-        console.log('@@@ calculateLAERTotalfields.oppProducts:',oppProducts);
+        console.log('@@@ calculateLAERTotalfields.oppProducts:',JSON.stringify(oppProducts));
+        console.log('@@@ calculateLAERTotalfields.installItems:',JSON.stringify(installItems));
         for (const oprod of oppProducts.fields) {
             console.log('@@@ calculateLAERTotalfields.oppProducts.oprod:',oprod);
             const rate = await getConvertedCurrency(
@@ -117,6 +117,7 @@ async function calculateLAERTotalfields({
         }
 
         for (const li of installItems.fields) {
+            console.log('@@@ calculateLAERTotalfields.oppProducts.li:',li);
             const rate = await getConvertedCurrency(
                 opp.CurrencyIsoCode,
                 li.CurrencyIsoCode,
