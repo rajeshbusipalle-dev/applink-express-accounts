@@ -49,7 +49,13 @@ app.get('/accounts', async (request, res) => {
  */
 app.post('/calculateLAERTotalfields', async (req, res) => {
     try {
-        const applinkContext = req.applinkContext;
+        const sf = applink.parseRequest(
+                    req.headers,
+                    req.body,
+                    null
+                    );
+
+        const applinkContext = sf.context;
 
         if (!applinkContext) {
             return res.status(400).json({
