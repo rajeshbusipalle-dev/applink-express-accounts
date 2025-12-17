@@ -35,7 +35,7 @@ async function calculateLAERTotalfields({
         throw new Error('recId and sobjectType are required');
     }
 
-    console.log('START calculateLAERTotalfields');
+    console.log('START calculateLAERTotalfields:',recId);
 
     const oppId = sobjectType === 'opportunity' ? recId : null;
     const contractId = sobjectType === 'contract' ? recId : null;

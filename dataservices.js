@@ -3,8 +3,8 @@
  * Salesforce query layer for Heroku AppLink
  */
 
-const applink = require('@heroku/applink');
-
+//const applink = require('@heroku/applink');
+const applink = require('@heroku/applink-sdk');
 /**
  * Fetch Opportunities (Apex-parity SOQL)
  */

@@ -48,7 +48,7 @@ app.post('/calculateLAERTotalfields', async (req, res) => {
                     req.body,
                     null
                     );
-
+        console.log('@@@ sf:',sf);
         const applinkContext = sf.context;
 
         if (!applinkContext) {
