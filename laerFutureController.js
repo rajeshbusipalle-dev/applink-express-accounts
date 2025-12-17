@@ -80,6 +80,11 @@ async function calculateLAERTotalfields({
         isClosedOnly: dealId ? dealId.includes('Closed Won') : false
     });
 
+    console.log(
+    'SOQL raw response:',
+    JSON.stringify(opportunities, null, 2)
+);
+
     if (!opportunities || opportunities.length === 0) {
         console.log('No opportunities found');
         return {};
@@ -88,8 +93,8 @@ async function calculateLAERTotalfields({
     /* ---- Calculate Totals ---- */
 
     for (const opp of opportunities) {
-        const oppProducts = opp.Opportunity_Products__r || [];
-        const installItems = opp.SAP_Install_Line_Items__r || [];
+        const oppProducts = opp.Opportunity_Products__r?.records || [];
+        const installItems = opp.SAP_Install_Line_Items__r?.records || [];
         console.log('@@@ calculateLAERTotalfields.oppProducts:',oppProducts);
         console.log('@@@ calculateLAERTotalfields.oppProducts:',oppProducts);
         for (const oprod of oppProducts) {
@@ -130,8 +135,8 @@ async function calculateLAERTotalfields({
     let laerRecord;
 
     if (sobjectType === 'opportunity') {
-        const existing = opportunities[0].LAER_Tables__r
-            ? opportunities[0].LAER_Tables__r[0]
+        const existing = opportunities[0].LAER_Tables__r?.records
+            ? opportunities[0].LAER_Tables__r?.records[0]
             : null;
 
         laerRecord = existing
@@ -144,8 +149,8 @@ async function calculateLAERTotalfields({
             dealId
         });
 
-        const existing = contract && contract.LAER_Table__r
-            ? contract.LAER_Table__r[0]
+        const existing = opportunities[0].LAER_Tables__r?.records
+            ? opportunities[0].LAER_Tables__r?.records[0]
             : null;
 
         laerRecord = existing
