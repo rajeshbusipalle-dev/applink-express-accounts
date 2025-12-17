@@ -90,7 +90,8 @@ async function calculateLAERTotalfields({
     for (const opp of opportunities) {
         const oppProducts = opp.Opportunity_Products__r || [];
         const installItems = opp.SAP_Install_Line_Items__r || [];
-
+        console.log('@@@ calculateLAERTotalfields.oppProducts:',oppProducts);
+        console.log('@@@ calculateLAERTotalfields.oppProducts:',oppProducts);
         for (const oprod of oppProducts) {
             const rate = await getConvertedCurrency(
                 opp.CurrencyIsoCode,
@@ -161,7 +162,7 @@ async function calculateLAERTotalfields({
         mapLaerTotalWithInstallValue
     );
 
-    console.log('UPSERT LAER RECORD:', laerRecord);
+    console.log('@@@ UPSERT LAER RECORD:', laerRecord);
 
     await upsertLAER(applinkContext, laerRecord);
 
