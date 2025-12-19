@@ -15,7 +15,7 @@ let mapcurrency = {};                // curr_new -> rate cache
 /* --------------------------------------------------------------------
  * Build CurrencyType conversion table (one-time)
  * ------------------------------------------------------------------*/
-async function buildCurrencyTable(applinkContext) {
+function buildCurrencyTable(applinkContext) {
     if (tableBuilt) return;
 
     console.log('**************** Building the Currency table ******************');
@@ -28,7 +28,7 @@ async function buildCurrencyTable(applinkContext) {
         WHERE IsActive = true
     `;
 
-    const res = await sf.query(query);
+    const res = sf.query(query);
     console.log('@@@ buildCurrencyTable_currencyRates : ',currencyRates);
     currencyRates = {};
     for (const currFields of res.records || []) {
@@ -46,8 +46,8 @@ async function buildCurrencyTable(applinkContext) {
  * Apex:
  * public static double convertValue(double value, String oldCur, String newCur)
  * ------------------------------------------------------------------*/
-async function convertValue(applinkContext, value, oldCur, newCur) {
-    await buildCurrencyTable(applinkContext);
+function convertValue(applinkContext, value, oldCur, newCur) {
+    buildCurrencyTable(applinkContext);
 
     let result = 0;
 
@@ -84,7 +84,7 @@ async function convertValue(applinkContext, value, oldCur, newCur) {
  * Apex:
  * public static double getCurrencyRateValue(String oldCur, String newCur, Date CurrencyDate)
  * ------------------------------------------------------------------*/
-async function getCurrencyRateValue(
+function getCurrencyRateValue(
     applinkContext,
     oldCur,
     newCur,
@@ -93,7 +93,7 @@ async function getCurrencyRateValue(
     let result = null;
 
     // ADC disabled – same as your Apex implementation
-    result = await convertValue(applinkContext, 1.0, oldCur, newCur);
+    result = convertValue(applinkContext, 1.0, oldCur, newCur);
 
     console.log(
         `Conversion done, in: ${oldCur} out: ${result} ${newCur}`
@@ -107,7 +107,7 @@ async function getCurrencyRateValue(
  * Map<String,Double> mapcurrency
  * public Double getconvertedCurrency(String currCurrency, String newCurrency, Date closeDate)
  * ------------------------------------------------------------------*/
-async function getconvertedCurrency(
+function getconvertedCurrency(
     applinkContext,
     currCurrency,
     newCurrency,
@@ -128,7 +128,7 @@ async function getconvertedCurrency(
     if (mapcurrency[key] !== undefined) {
         currencyconversionvar = mapcurrency[key];
     } else {
-        currencyconversionvar = await getCurrencyRateValue(
+        currencyconversionvar = getCurrencyRateValue(
             applinkContext,
             newCurrency,
             currCurrency,

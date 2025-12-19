@@ -106,7 +106,7 @@ async function calculateLAERTotalfields({
             const oprod = oprodFields.fields;
             console.log('@@@ calculateLAERTotalfields.oppProducts.oprod:',oprod);
             
-            const rate = await getConvertedCurrency(
+            const rate = getConvertedCurrency(
                 oppFields.CurrencyIsoCode,
                 oprod.CurrencyIsoCode,
                 oppFields.CloseDate
@@ -143,8 +143,8 @@ async function calculateLAERTotalfields({
         */
         }
        catch (error) {
-            console.error('Error message:', error.message);
-            console.error('Stack trace:', error.stack);
+            console.log('Error message:', error.message);
+            console.log('Stack trace:', error.stack);
             }
     }
 
