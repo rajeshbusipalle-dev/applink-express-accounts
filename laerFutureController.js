@@ -102,15 +102,15 @@ async function calculateLAERTotalfields({
         for (const oprodFields of oppProducts) {
             const oprod = oprodFields.fields;
             console.log('@@@ calculateLAERTotalfields.oppProducts.oprod:',oprod);
-            /*
+            
             const rate = await getConvertedCurrency(
                 opp.CurrencyIsoCode,
                 oprod.CurrencyIsoCode,
                 opp.CloseDate
             );
-            */
-            const rate = 1;
-
+            
+            //const rate = 1;
+            console.log('@@@ Convertion Rate : ',rate);
             mapLaerTotalWithValue = calculateTotalOppProdFields(
                 mappingforTotals,
                 mapLaerTotalWithValue,

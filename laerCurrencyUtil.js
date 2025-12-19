@@ -29,13 +29,14 @@ async function buildCurrencyTable(applinkContext) {
     `;
 
     const res = await sf.query(query);
-
+    console.log('@@@ buildCurrencyTable_currencyRates : ',currencyRates);
     currencyRates = {};
-    for (const curr of res.records || []) {
-        console.log(curr);
+    for (const currFields of res.records || []) {
+        const curr = currFields.fields;
+        console.log('@@@ buildCurrencyTable_curr: ',curr);
         currencyRates[curr.IsoCode] = curr.ConversionRate;
     }
-
+    console.log('@@@ buildCurrencyTable_currencyRates : ',currencyRates);
     if (Object.keys(currencyRates).length > 0) {
         tableBuilt = true;
     }
