@@ -105,25 +105,25 @@ function getCurrencyRateValue(
 /* --------------------------------------------------------------------
  * Apex:
  * Map<String,Double> mapcurrency
- * public Double getconvertedCurrency(String currCurrency, String newCurrency, Date closeDate)
+ * public Double getConvertedCurrency(String currCurrency, String newCurrency, Date closeDate)
  * ------------------------------------------------------------------*/
-function getconvertedCurrency(
+function getConvertedCurrency(
     applinkContext,
     currCurrency,
     newCurrency,
     closeDate
 ) {
-    console.log('@@@ getconvertedCurrency_currCurrency',currCurrency);
+    console.log('@@@ getConvertedCurrency_currCurrency',currCurrency);
     let currencyconversionvar = 1;
 
     if (currCurrency === newCurrency) {
-        console.log('@@@ getconvertedCurrency_currencyconversionvar',currencyconversionvar);
+        console.log('@@@ getConvertedCurrency_currencyconversionvar',currencyconversionvar);
         return currencyconversionvar;
     }
     
     const key = `${currCurrency}_${newCurrency}`;
 
-    console.log('@@@ getconvertedCurrency_key',key);
+    console.log('@@@ getConvertedCurrency_key',key);
 
     if (mapcurrency[key] !== undefined) {
         currencyconversionvar = mapcurrency[key];
@@ -153,6 +153,6 @@ function resetCurrencyCache() {
 module.exports = {
     convertValue,
     getCurrencyRateValue,
-    getconvertedCurrency,
+    getConvertedCurrency,
     resetCurrencyCache
 };

@@ -102,6 +102,9 @@ async function calculateLAERTotalfields({
         for (const oprodFields of oppProducts) {
             const oprod = oprodFields.fields;
             console.log('@@@ calculateLAERTotalfields.oppProducts.oprod:',oprod);
+            console.log('@@@ calculateLAERTotalfields.oppFields.CurrencyIsoCode:',oppFields.CurrencyIsoCode);
+            console.log('@@@ calculateLAERTotalfields.oprod.CurrencyIsoCode:',oprod.CurrencyIsoCode);
+            console.log('@@@ calculateLAERTotalfields.oppFields.CloseDate:',oppFields.CloseDate);
             
             const rate = getConvertedCurrency(
                 applinkContext,
