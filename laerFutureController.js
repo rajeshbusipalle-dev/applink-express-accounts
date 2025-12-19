@@ -123,14 +123,16 @@ async function calculateLAERTotalfields({
                 oppFields.CloseDate
             );
         }
-        /*
+        
         for (const liFields of installItems) {
             const li = liFields.fields;
             console.log('@@@ calculateLAERTotalfields.oppProducts.li:',li);
+           
             const rate = await getConvertedCurrency(
-                opp.CurrencyIsoCode,
+                applinkContext,
+                oppFields.CurrencyIsoCode,
                 li.CurrencyIsoCode,
-                opp.CloseDate
+                oppFields.CloseDate
             );
 
             mapLaerTotalWithInstallValue = calculateTotalInstallfields(
@@ -138,10 +140,10 @@ async function calculateLAERTotalfields({
                 mapLaerTotalWithInstallValue,
                 li,
                 rate,
-                opp.CloseDate
+                oppFields.CloseDate
             );
         }
-        */
+        
         }
        catch (error) {
             console.log('Error message:', error.message);
