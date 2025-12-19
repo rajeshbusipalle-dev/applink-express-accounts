@@ -113,13 +113,17 @@ async function getconvertedCurrency(
     newCurrency,
     closeDate
 ) {
+    console.log('@@@ getconvertedCurrency_currCurrency',currCurrency);
     let currencyconversionvar = 1;
 
     if (currCurrency === newCurrency) {
+        console.log('@@@ getconvertedCurrency_currencyconversionvar',currencyconversionvar);
         return currencyconversionvar;
     }
-
+    
     const key = `${currCurrency}_${newCurrency}`;
+
+    console.log('@@@ getconvertedCurrency_key',key);
 
     if (mapcurrency[key] !== undefined) {
         currencyconversionvar = mapcurrency[key];

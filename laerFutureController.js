@@ -93,20 +93,23 @@ async function calculateLAERTotalfields({
     /* ---- Calculate Totals ---- */
 
     for (const opp of opportunities) {
+        try{
         //const oppProducts = opp.Opportunity_Products__r?.records || [];
+        const oppFields = opp.fields;
         const oppProducts = opp?.subQueryResults?.opportunity_products__r?.records || [];
         //const installItems = opp.SAP_Install_Line_Items__r?.records || [];
         const installItems = opp?.subQueryResults?.SAP_Install_Line_Items__r?.records || [];
         console.log('@@@ calculateLAERTotalfields.oppProducts:',JSON.stringify(oppProducts));
         console.log('@@@ calculateLAERTotalfields.installItems:',JSON.stringify(installItems));
+        
         for (const oprodFields of oppProducts) {
             const oprod = oprodFields.fields;
             console.log('@@@ calculateLAERTotalfields.oppProducts.oprod:',oprod);
             
             const rate = await getConvertedCurrency(
-                opp.CurrencyIsoCode,
+                oppFields.CurrencyIsoCode,
                 oprod.CurrencyIsoCode,
-                opp.CloseDate
+                oppFields.CloseDate
             );
             
             //const rate = 1;
@@ -116,7 +119,7 @@ async function calculateLAERTotalfields({
                 mapLaerTotalWithValue,
                 oprod,
                 rate,
-                opp.CloseDate
+                oppFields.CloseDate
             );
         }
         /*
@@ -138,6 +141,11 @@ async function calculateLAERTotalfields({
             );
         }
         */
+        }
+       catch (error) {
+            console.error('Error message:', error.message);
+            console.error('Stack trace:', error.stack);
+            }
     }
 
     /* ---- Build LAER Record ---- */
@@ -148,7 +156,7 @@ async function calculateLAERTotalfields({
         const existing = opportunities[0].LAER_Tables__r?.records
             ? opportunities[0].LAER_Tables__r?.records[0]
             : null;
-
+        console.log('@@@ Existing LAER : ',existing);
         laerRecord = existing
             ? { Id: existing.Id }
             : { Name: 'Total', Opportunity__c: oppId };
