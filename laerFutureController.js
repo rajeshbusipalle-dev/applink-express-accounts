@@ -160,7 +160,7 @@ async function calculateLAERTotalfields({
                             : null;
         console.log('@@@ Existing LAER : ',existing);
         laerRecord = existing
-            ? { Id: existing.Id }
+            ? existing
             : { Name: 'Total', Opportunity__c: oppId };
     } else {
         const contract = await fetchContractLAER({
