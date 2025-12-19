@@ -80,10 +80,7 @@ async function calculateLAERTotalfields({
         isClosedOnly: dealId ? dealId.includes('Closed Won') : false
     });
 
-    console.log(
-    'SOQL raw response:',
-    JSON.stringify(opportunities, null, 2)
-);
+    //console.log('SOQL raw response:',JSON.stringify(opportunities, null, 2));
 
     if (!opportunities || opportunities.length === 0) {
         console.log('No opportunities found');
@@ -107,6 +104,7 @@ async function calculateLAERTotalfields({
             console.log('@@@ calculateLAERTotalfields.oppProducts.oprod:',oprod);
             
             const rate = getConvertedCurrency(
+                applinkContext,
                 oppFields.CurrencyIsoCode,
                 oprod.CurrencyIsoCode,
                 oppFields.CloseDate
