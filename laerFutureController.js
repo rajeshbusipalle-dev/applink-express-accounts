@@ -156,7 +156,7 @@ async function calculateLAERTotalfields({
     if (sobjectType === 'opportunity') {
         
         const existing = opp?.subQueryResults?.laer_tables__r?.records?.length > 0
-                            ? opp.subQueryResults.laer_tables__r.records[0]
+                            ? opp.subQueryResults.laer_tables__r.records[0].fields
                             : null;
         console.log('@@@ Existing LAER : ',existing);
         laerRecord = existing
@@ -170,9 +170,9 @@ async function calculateLAERTotalfields({
         });
 
         const existing = opp?.subQueryResults?.laer_tables__r?.records?.length > 0
-                            ? opp.subQueryResults.laer_tables__r.records[0]
+                            ? opp.subQueryResults.laer_tables__r.records[0].fields
                             : null;
-
+        console.log('@@@ Existing LAER : ',existing);
         laerRecord = existing
             ? { Id: existing.Id }
             : {
