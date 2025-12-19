@@ -152,11 +152,12 @@ async function calculateLAERTotalfields({
     /* ---- Build LAER Record ---- */
 
     let laerRecord;
-
+    const opp = opportunities?.[0] || null;
     if (sobjectType === 'opportunity') {
-        const existing = opportunities[0].LAER_Tables__r?.records
-            ? opportunities[0].LAER_Tables__r?.records[0]
-            : null;
+        
+        const existing = opp?.subQueryResults?.laer_tables__r?.records?.length > 0
+                            ? opp.subQueryResults.laer_tables__r.records[0]
+                            : null;
         console.log('@@@ Existing LAER : ',existing);
         laerRecord = existing
             ? { Id: existing.Id }
@@ -168,9 +169,9 @@ async function calculateLAERTotalfields({
             dealId
         });
 
-        const existing = opportunities[0].LAER_Tables__r?.records
-            ? opportunities[0].LAER_Tables__r?.records[0]
-            : null;
+        const existing = opp?.subQueryResults?.laer_tables__r?.records?.length > 0
+                            ? opp.subQueryResults.laer_tables__r.records[0]
+                            : null;
 
         laerRecord = existing
             ? { Id: existing.Id }
