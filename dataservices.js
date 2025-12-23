@@ -119,12 +119,12 @@ async function upsertLAER(applinkContext, laerPayload) {
 
     console.log('@@@ upsertLAER_laerPayload:',laerPayload);
     const sf = applinkContext.org.dataApi;
-    return laerPayload;
-/*
+    //return laerPayload;
+
     return sf
         .sobject('LAER_Table__c')
         .upsert(laerPayload, 'Id');
-        */
+        
 }
 
 module.exports = {
