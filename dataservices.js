@@ -135,6 +135,12 @@ async function upsertLAER(applinkContext, laerPayload) {
 
         console.log('@@@ upsertLAER_laerPayload after:',laerPayload);
 
+        const testLAERpayload = {
+                        Id: 'aIK4O000000IRb0WAG',
+                        name: 'Total Test'
+                };
+             
+
     const dataApi  = applinkContext.org.dataApi;
     // Create a new UnitOfWork instance
     const uow = dataApi.newUnitOfWork();
@@ -143,7 +149,7 @@ async function upsertLAER(applinkContext, laerPayload) {
    // const recordPayload  = normalizeLAERPayload(laerPayload);
 
     // Register the create operation
-    const recordReference = uow.registerUpdate('LAER_Table__c', laerPayload);
+    const recordReference = uow.registerUpdate('LAER_Table__c', testLAERpayload);
 
      // Commit the UnitOfWork
     const result = await dataApi.commitUnitOfWork(uow);
