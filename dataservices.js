@@ -134,15 +134,15 @@ async function upsertLAER(applinkContext, laerPayload) {
     
     const sf = applinkContext.org.dataApi;
 
-        if (normalizedPayload.Id) {
-            console.log('@@@ upsertLAER_laerPayload in update:',normalizedPayload);
-        return sf.update('LAER_Table__c',
-                        normalizedPayload.Id,   // ✅ recordId
-                        normalizedPayload       // ✅ fields
+        const result = await sf.upsert(
+                        'LAER_Table__c',       // Salesforce object API name
+                        normalizedPayload,     // Fields to insert/update
+                        'Id',       // External ID field
+                        normalizedPayload.Id        // Value to match for update
                         );
-        }
 
-        return sf.create('LAER_Table__c', normalizedPayload);
+        console.log('Upsert successful:', result);
+        return result;
                 
 }
 
