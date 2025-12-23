@@ -61,7 +61,7 @@ async function fetchOpportunities({
                     WHERE IsCancelled__c = false and ( ( Subscription_License_Net__c != null ) or (Monthly_Net_Maint__c !=null))
                 ),
 
-                (Select Id ,Deal_Event__c,Total_Expiring_Hardware_ACV__c,Actual_ACV__c,ACV_Actual_Net_New__c,Total_Expiring_Subscription_ACV__c,Total_Expiring_SaaS_ACV__c,Total_Expiring_Maintenance_ACV__c,Total_Expiring_LaaS_ACV__c,Total_Expiring_HSaaS_ACV__c,Base_Renewal_ACV__c,Name,Expiring_ACV__c,Opportunity__c,Product_Expand_ACV__c,Renewal_Deal_Contraction_ACV__c,Renewal_Deal_Expand_ACV__c,Land_Add_on_ACV__c,Expiring_TCV__c,Flippable_Expiring_ACV__c,Flippable_Expiring_TCV__c,Hybrid_SaaS_ACV__c,Hybrid_SaaS_TCV__c,Opportunity_TCV__c,Type__c,Total_Opportunity_ACV__c,Total_Opp_Net_New_ACV__c ,Total_Base_Renewal_ACV__c,Total_Expiring_ACV__c,Total_Product_Expand_ACV__c,Total_Renewal_Contraction_ACV__c,Total_Renewal_Expand_ACV__c ,Total_Land_Add_on_ACV__c,Perp2SaaS_Expiring_ACV__c,Perp2SaaS_Base_Renewal_ACV__c,Perp2SaaS_Opp_Net_New_ACV__c,Perp2SaaS_Opportunity_ACV__c,Perp2SaaS_Product_Expand_ACV__c,Perp2SaaS_Renewal_Contraction_ACV__c,Perp2SaaS_Renewal_Expand_ACV__c,Total_Perp2SaaS_Opportunity_ACV__c, Total_Perp2SaaS_Opp_Net_New_ACV__c  ,Total_Perp2SaaS_Expiring_ACV__c ,Total_Perp2SaaS_Product_Expand_ACV__c ,Total_Perp2SaaS_Renewal_Contraction_ACV__c,Total_Perp2SaaS_Renewal_Expand_ACV__c,Total_Perp2SaaS_Base_Renewal_ACV__c,Total_Base_Renewal__c ,Total_Renewal_Expand__c ,Total_Product_Expand__c ,Total_Land_Add_on__c ,Perp2SaaS_Base_Renewal__c ,Perp2SaaS_Renewal_Expand__c ,Perp2SaaS_Product_Expand__c,Contract_Deal_ID__c,Total_Expiring_12_Mths_Equivalent__c,Total_Cloud__c, Total_Process_B_via_LSDA__c, Total_SAAS_Operations__c,opportunity__R.isclosed,opportunity__r.closedate,opportunity__r.contractId,Target_ACV__c,opportunity__r.Deal_Event_Override__c,Deal_ID_Key__c
+                (Select Id ,Total_Expiring_Hardware_ACV__c,Actual_ACV__c,ACV_Actual_Net_New__c,Total_Expiring_Subscription_ACV__c,Total_Expiring_SaaS_ACV__c,Total_Expiring_Maintenance_ACV__c,Total_Expiring_LaaS_ACV__c,Total_Expiring_HSaaS_ACV__c,Base_Renewal_ACV__c,Name,Expiring_ACV__c,Opportunity__c,Product_Expand_ACV__c,Renewal_Deal_Contraction_ACV__c,Renewal_Deal_Expand_ACV__c,Land_Add_on_ACV__c,Expiring_TCV__c,Flippable_Expiring_ACV__c,Flippable_Expiring_TCV__c,Hybrid_SaaS_ACV__c,Hybrid_SaaS_TCV__c,Opportunity_TCV__c,Type__c,Total_Opportunity_ACV__c,Total_Opp_Net_New_ACV__c ,Total_Base_Renewal_ACV__c,Total_Expiring_ACV__c,Total_Product_Expand_ACV__c,Total_Renewal_Contraction_ACV__c,Total_Renewal_Expand_ACV__c ,Total_Land_Add_on_ACV__c,Perp2SaaS_Expiring_ACV__c,Perp2SaaS_Base_Renewal_ACV__c,Perp2SaaS_Opp_Net_New_ACV__c,Perp2SaaS_Opportunity_ACV__c,Perp2SaaS_Product_Expand_ACV__c,Perp2SaaS_Renewal_Contraction_ACV__c,Perp2SaaS_Renewal_Expand_ACV__c,Total_Perp2SaaS_Opportunity_ACV__c, Total_Perp2SaaS_Opp_Net_New_ACV__c  ,Total_Perp2SaaS_Expiring_ACV__c ,Total_Perp2SaaS_Product_Expand_ACV__c ,Total_Perp2SaaS_Renewal_Contraction_ACV__c,Total_Perp2SaaS_Renewal_Expand_ACV__c,Total_Perp2SaaS_Base_Renewal_ACV__c,Total_Base_Renewal__c ,Total_Renewal_Expand__c ,Total_Product_Expand__c ,Total_Land_Add_on__c ,Perp2SaaS_Base_Renewal__c ,Perp2SaaS_Renewal_Expand__c ,Perp2SaaS_Product_Expand__c,Contract_Deal_ID__c,Total_Expiring_12_Mths_Equivalent__c,Total_Cloud__c, Total_Process_B_via_LSDA__c, Total_SAAS_Operations__c,opportunity__R.isclosed,opportunity__r.closedate,opportunity__r.contractId,Target_ACV__c,opportunity__r.Deal_Event_Override__c,Deal_ID_Key__c
                 FROM LAER_Tables__r
                     WHERE Name = 'Total')
 
@@ -119,27 +119,10 @@ async function upsertLAER(applinkContext, laerPayload) {
 
     //console.log('@@@ upsertLAER_laerPayload:',laerPayload);
     
-    const normalizeLAERPayload = (laerPayload) => {
-        const { id, opportunity__r, ...rest } = laerPayload;
+    console.log('@@@ upsertLAER_laerPayload after:',laerPayload);
 
-        return {
-            ...rest,
-            Id: id // REQUIRED
-        };
-    };
-
-    if (laerPayload.fields.id) {
-        laerPayload.fields.Id = laerPayload.fields.id;
-        delete laerPayload.fields.id; // optional cleanup
-        }
-
-        console.log('@@@ upsertLAER_laerPayload after:',laerPayload);
-
-        const testLAERpayload = {
-                        Id: 'aIK4O000000IRb0WAG',
-                        name: 'Total Test'
-                };
-             
+    /* Working with Unit Of Work Example Sample */
+    /*
 
     const dataApi  = applinkContext.org.dataApi;
     // Create a new UnitOfWork instance
@@ -168,26 +151,35 @@ async function upsertLAER(applinkContext, laerPayload) {
 
      // Commit the UnitOfWork
     const result = await dataApi.commitUnitOfWork(uow);
-
+       
     console.log('Update successful:', result);
     return result;
 
+     */
+    /* Working with Unit Of Work Example */
 
-/*
-    const normalizedPayload = normalizeLAERPayload(laerPayload);
-
-    console.log('@@@ upsertLAER_normalizedPayload:',normalizedPayload);
-    
     const dataApi  = applinkContext.org.dataApi;
+
+    const testLAERPL = {
+          type: 'LAER_Table__c',
+          fields: {
+            id: 'aIK4O000000IRb0WAG',
+            total_expiring_maintenance_acv__c: 50000.00,
+            total_expiring_laas_acv__c: 1000,
+            name: 'Total HEROKU TEST 2',
+            opportunity__c: '0064O00000ugpzlQAA',
+            type__c: 'New',
+          },
+        };
 
     const result = await dataApi.update(
       'LAER_Table__c',   // Salesforce object API name
-      normalizedPayload  // Fields to update, must include Id
+      testLAERPL  // Fields to update, must include Id
     );
 
         console.log('Update successful:', result);
         return result;
-        */        
+               
 }
 
 module.exports = {
