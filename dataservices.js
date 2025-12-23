@@ -195,7 +195,7 @@ async function upsertLAER(applinkContext, laerPayload) {
             total_expiring_laas_acv__c: 1000,
             name: 'Total HEROKU TEST',
             opportunity__c: '0064O00000ugpzlQAA',
-            type__c: 'New',
+            type__c: 'New'
           },
         }];
 
