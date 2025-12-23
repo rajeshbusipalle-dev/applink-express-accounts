@@ -191,7 +191,7 @@ async function upsertLAER(req,applinkContext, laerPayload) {
         {
             type: 'LAER_Table__c',
             fields: {
-            Id: 'aIK4O000000IRb0WAG',   // MUST be capital Id
+            id: 'aIK4O000000IRb0WAG',   // MUST be capital Id
             Total_Expiring_Maintenance_ACV__c: 50000.00,
             Total_Expiring_LAAS_ACV__c: 1000,
             Name: 'Total HEROKU TEST',
