@@ -118,13 +118,26 @@ async function upsertLAER(applinkContext, laerPayload) {
     }
 
     console.log('@@@ upsertLAER_laerPayload:',laerPayload);
+    
+    const normalizeLAERPayload = (laerPayload) => {
+        const { id, opportunity__r, ...rest } = laerPayload;
+
+        return {
+            ...rest,
+            Id: id // REQUIRED
+        };
+    };
+
+    console.log('@@@ upsertLAER_normalizeLAERPayload:',normalizeLAERPayload);
+    
     const sf = applinkContext.org.dataApi;
 
         if (laerPayload.Id) {
-        return sf.update('LAER_Table__c', laerPayload);
+            console.log('@@@ upsertLAER_laerPayload in update:',normalizeLAERPayload);
+        return sf.update('LAER_Table__c', normalizeLAERPayload);
         }
 
-        return sf.create('LAER_Table__c', laerPayload);
+        return sf.create('LAER_Table__c', normalizeLAERPayload);
                 
 }
 
