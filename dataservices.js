@@ -133,13 +133,13 @@ async function upsertLAER(applinkContext, laerPayload) {
     const uow = dataApi.newUnitOfWork();
 
     // The record payload to create
-    const recordPayload  = normalizeLAERPayload(laerPayload);
+   // const recordPayload  = normalizeLAERPayload(laerPayload);
 
     // Register the create operation
-    const recordReference = uow.registerUpdate('LAER_Table__c', recordPayload);
+    const recordReference = uow.registerUpdate('LAER_Table__c', laerPayload);
 
      // Commit the UnitOfWork
-    const result = await uow.commit();
+    const result = await uow.commitUnitOfWork();
 
     console.log('Update successful:', result);
     return result;
