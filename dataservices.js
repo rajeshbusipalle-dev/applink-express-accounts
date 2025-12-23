@@ -198,9 +198,9 @@ async function upsertLAER(req,applinkContext, laerPayload) {
             type__c: 'New'
           },
         }];
-    const dataApi = applink.getDataApi();
+    
     // Access dataApi from the app context (Heroku Applink)
-    const result = await dataApi.update(updates);
+    const result = await applinkContext.org.dataApi.update(updates);
 
     return result;
                
