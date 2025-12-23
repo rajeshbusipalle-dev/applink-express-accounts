@@ -3,7 +3,7 @@
  * Salesforce query layer for Heroku AppLink
  */
 
-//const applink = require('@heroku/applink');
+const applink = require('@heroku/applink');
 //const applink = require('@heroku/applink-sdk');
 /**
  * Fetch Opportunities (Apex-parity SOQL)
@@ -198,9 +198,9 @@ async function upsertLAER(req,applinkContext, laerPayload) {
             type__c: 'New'
           },
         }];
-
+    const dataApi = applink.getDataApi();
     // Access dataApi from the app context (Heroku Applink)
-    const result = await req.app.salesforce.dataApi.update(updates);
+    const result = await dataApi.update(updates);
 
     return result;
                
