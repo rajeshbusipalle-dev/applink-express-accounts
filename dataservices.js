@@ -185,8 +185,7 @@ async function upsertLAER(req,applinkContext, laerPayload) {
         console.log('Update successful:', result);
         return result;
         */
-       const result = '';
-try{
+
 
        const updates = 
         {
@@ -195,7 +194,7 @@ try{
                 id: 'aIK4O000000IRb0WAG',   // MUST be capital Id
                 Total_Expiring_Maintenance_ACV__c: 50000.00,
                 Total_Expiring_LAAS_ACV__c: 1000,
-                Name: 'Total HEROKU TEST',
+                Name: 'Total HEROKU TEST UPDATE',
                 Opportunity__c: '0064O00000ugpzlQAA',
                 Type__c: 'New'
             }
@@ -203,12 +202,8 @@ try{
         ;
     
     // Access dataApi from the app context (Heroku Applink)
-    result = await applinkContext.org.dataApi.update(updates);
+    const result = await applinkContext.org.dataApi.update(updates);
          console.log('Update successful:', result);
-    }
-    catch (error) {
-        console.log('Update failed:', error);
-    }
     return result;
                
 }
