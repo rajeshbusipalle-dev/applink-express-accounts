@@ -200,7 +200,7 @@ async function upsertLAER(applinkContext, laerPayload) {
         }];
 
     // Access dataApi from the app context (Heroku Applink)
-    const result = await applinkContext.org.dataApi.update(updates);
+    const result = await req.app.salesforce.dataApi.update(updates);
 
     return result;
                

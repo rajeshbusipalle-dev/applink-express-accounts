@@ -66,6 +66,7 @@ app.post('/calculateLAERTotalfields', async (req, res) => {
         } = req.body;
 
         const result = await calculateLAERTotalfields({
+            req,
             applinkContext,
             recId,
             closeDate,

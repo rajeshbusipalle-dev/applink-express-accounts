@@ -21,6 +21,7 @@ const { getConvertedCurrency } = require('./laerCurrencyUtil');
  * Main entry method invoked from index.js
  */
 async function calculateLAERTotalfields({
+    req,
     applinkContext,
     recId,
     closeDate,
@@ -160,7 +161,7 @@ async function calculateLAERTotalfields({
                             ? opp.subQueryResults.laer_tables__r.records[0].fields
                             : null;
         console.log('@@@ Existing LAER : ',existing);
-
+        //TODO : Null check for LAER Total
         laerRecord = opp.subQueryResults.laer_tables__r.records[0];
         console.log('@@@ Existing LAER laerRecord : ',laerRecord);
         /*
@@ -195,7 +196,7 @@ async function calculateLAERTotalfields({
 
     console.log('@@@ UPSERT LAER RECORD:', laerRecord);
 
-    await upsertLAER(applinkContext, laerRecord);
+    await upsertLAER(req,applinkContext, laerRecord);
 
     console.log('END calculateLAERTotalfields');
 
