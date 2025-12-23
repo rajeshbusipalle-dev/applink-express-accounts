@@ -158,6 +158,8 @@ async function upsertLAER(applinkContext, laerPayload) {
      */
     /* Working with Unit Of Work Example */
 
+    /*
+
     const dataApi  = applinkContext.org.dataApi;
 
     const testLAERPL = {
@@ -182,6 +184,26 @@ async function upsertLAER(applinkContext, laerPayload) {
         }
         console.log('Update successful:', result);
         return result;
+        */
+
+
+        const updates = [{
+        sobject: 'LAER_Table__c',
+        id: 'aIK4O000000IRb0WAG',
+        fields: {
+            id: 'aIK4O000000IRb0WAG',
+            total_expiring_maintenance_acv__c: 50000.00,
+            total_expiring_laas_acv__c: 1000,
+            name: 'Total HEROKU TEST',
+            opportunity__c: '0064O00000ugpzlQAA',
+            type__c: 'New',
+          },
+        }];
+
+    // Access dataApi from the app context (Heroku Applink)
+    const result = await applinkContext.org.dataApi.update(updates);
+
+    return result;
                
 }
 
