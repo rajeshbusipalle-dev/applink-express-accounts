@@ -128,6 +128,11 @@ async function upsertLAER(applinkContext, laerPayload) {
         };
     };
 
+    if (laerPayload.fields.id) {
+        laerPayload.fields.Id = laerPayload.fields.id;
+        delete laerPayload.fields.id; // optional cleanup
+        }
+
     const dataApi  = applinkContext.org.dataApi;
     // Create a new UnitOfWork instance
     const uow = dataApi.createUnitOfWork();
