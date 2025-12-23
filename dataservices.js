@@ -158,7 +158,6 @@ async function upsertLAER(applinkContext, laerPayload) {
           type: 'LAER_Table__c',
           fields: {
             id: 'aIK4O000000IRb0WAG',
-            deal_event__c: '00028692 / 2026-07',
             total_expiring_maintenance_acv__c: 50000.00,
             total_expiring_laas_acv__c: 1000,
             name: 'Total HEROKU TEST',
