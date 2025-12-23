@@ -128,6 +128,24 @@ async function upsertLAER(applinkContext, laerPayload) {
         };
     };
 
+    const dataApi  = applinkContext.org.dataApi;
+    // Create a new UnitOfWork instance
+    const uow = dataApi.createUnitOfWork();
+
+    // The record payload to create
+    const recordPayload  = normalizeLAERPayload(laerPayload);
+
+    // Register the create operation
+    const recordReference = uow.registerUpdate('LAER_Table__c', recordPayload);
+
+     // Commit the UnitOfWork
+    const result = await uow.commit();
+
+    console.log('Update successful:', result);
+    return result;
+
+
+/*
     const normalizedPayload = normalizeLAERPayload(laerPayload);
 
     console.log('@@@ upsertLAER_normalizedPayload:',normalizedPayload);
@@ -141,7 +159,7 @@ async function upsertLAER(applinkContext, laerPayload) {
 
         console.log('Update successful:', result);
         return result;
-                
+        */        
 }
 
 module.exports = {
