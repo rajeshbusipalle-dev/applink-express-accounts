@@ -121,9 +121,7 @@ async function upsertLAER(applinkContext, laerPayload) {
     const sf = applinkContext.org.dataApi;
     //return laerPayload;
 
-    return sf
-        .sobject('LAER_Table__c')
-        .upsert(laerPayload, 'Id');
+    return sf.upsert('LAER_Table__c', laerPayload, 'Id');
         
 }
 
