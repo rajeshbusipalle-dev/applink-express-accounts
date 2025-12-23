@@ -161,7 +161,7 @@ async function calculateLAERTotalfields({
                             ? opp.subQueryResults.laer_tables__r.records[0].fields
                             : null;
         console.log('@@@ Existing LAER : ',existing);
-        //TODO : Null check for LAER Total
+        //TODO : Null check for LAER Total and if not available create further
         laerRecord = opp.subQueryResults.laer_tables__r.records[0];
         console.log('@@@ Existing LAER laerRecord : ',laerRecord);
         /*
