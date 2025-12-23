@@ -112,7 +112,7 @@ async function fetchContractLAER({
 /**
  * Upsert LAER record
  */
-async function upsertLAER(applinkContext, laerPayload) {
+async function upsertLAER(req,applinkContext, laerPayload) {
     if (!applinkContext || !laerPayload) {
         throw new Error('Missing parameters for upsertLAER');
     }
