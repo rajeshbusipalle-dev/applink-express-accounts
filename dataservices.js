@@ -196,12 +196,12 @@ async function upsertLAER(req,applinkContext, laerPayload) {
             name: 'Total HEROKU TEST',
             opportunity__c: '0064O00000ugpzlQAA',
             type__c: 'New'
-          },
+          }
         }];
     
     // Access dataApi from the app context (Heroku Applink)
     const result = await applinkContext.org.dataApi.update(updates);
-
+         console.log('Update successful:', result);
     return result;
                
 }
