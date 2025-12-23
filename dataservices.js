@@ -117,7 +117,7 @@ async function upsertLAER(applinkContext, laerPayload) {
         throw new Error('Missing parameters for upsertLAER');
     }
 
-    console.log('@@@ upsertLAER_laerPayload:',laerPayload);
+    //console.log('@@@ upsertLAER_laerPayload:',laerPayload);
     
     const normalizeLAERPayload = (laerPayload) => {
         const { id, opportunity__r, ...rest } = laerPayload;
@@ -148,8 +148,24 @@ async function upsertLAER(applinkContext, laerPayload) {
     // The record payload to create
    // const recordPayload  = normalizeLAERPayload(laerPayload);
 
+   console.log('@@@ upsertLAER_testLAERpayload after:',testLAERpayload);
+
     // Register the create operation
-    const recordReference = uow.registerUpdate('LAER_Table__c', testLAERpayload);
+    //const recordReference = uow.registerUpdate('LAER_Table__c', testLAERpayload);
+
+
+    uow.registerUpdate({
+          type: 'LAER_Table__c',
+          fields: {
+            id: 'aIK4O000000IRb0WAG',
+            deal_event__c: '00028692 / 2026-07',
+            total_expiring_maintenance_acv__c: 50000.00,
+            total_expiring_laas_acv__c: 1000,
+            name: 'Total HEROKU TEST',
+            opportunity__c: '0064O00000ugpzlQAA',
+            type__c: 'New',
+          },
+        });
 
      // Commit the UnitOfWork
     const result = await dataApi.commitUnitOfWork(uow);

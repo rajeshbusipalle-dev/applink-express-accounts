@@ -2,7 +2,7 @@
  * Calculate total opportunity product fields
  */
 function calculateTotalOppProdFields(mappingForTotals, mapLaerTotalWithValue, oprod, currencyConversionVar, closeDate) {
-    console.log('@@@ calculateTotalOppProdFields_laerPayload:',oprod);
+    //console.log('@@@ calculateTotalOppProdFields_laerPayload:',oprod);
     // Step 1: Map LAER fields from Opportunity_Product__c
     for (const laerField in mappingForTotals) {
         const oprodField = mappingForTotals[laerField];
@@ -46,7 +46,7 @@ function calculateTotalOppProdFields(mappingForTotals, mapLaerTotalWithValue, op
 
     mapLaerTotalWithValue['Total_Opportunity_12_Mths_Equivalent__c'] =
         (mapLaerTotalWithValue['Total_Opportunity_12_Mths_Equivalent__c'] || 0) + totalOpportunity12MthsEquivalent;
-    console.log('@@@ calculateTotalOppProdFields_mapLaerTotalWithValue:',mapLaerTotalWithValue);
+    //console.log('@@@ calculateTotalOppProdFields_mapLaerTotalWithValue:',mapLaerTotalWithValue);
     return mapLaerTotalWithValue;
 }
 
@@ -54,7 +54,7 @@ function calculateTotalOppProdFields(mappingForTotals, mapLaerTotalWithValue, op
 
 
 function calculateTotalInstallfields(mappingForTotals, mapLaerTotalWithValue, oprod, currencyconversionvar, oppCloseDate) {
-    console.log('@@@ calculateTotalInstallfields_mapLaerTotalWithValue:',mapLaerTotalWithValue);
+    //console.log('@@@ calculateTotalInstallfields_mapLaerTotalWithValue:',mapLaerTotalWithValue);
     // Helper: add or update key
     const putValue = (key, val) => {
         mapLaerTotalWithValue[key] = (mapLaerTotalWithValue[key] || 0) + val;
@@ -307,7 +307,7 @@ function calculateTotalInstallfields(mappingForTotals, mapLaerTotalWithValue, op
 
     putValue("T2X_Exp_ACV_from_Subscription__c", t2xExpACVfromSubscription);
 
-    console.log('@@@ calculateTotalInstallfields_mapLaerTotalWithValue:',mapLaerTotalWithValue);
+    //console.log('@@@ calculateTotalInstallfields_mapLaerTotalWithValue:',mapLaerTotalWithValue);
 
     return mapLaerTotalWithValue;
 }
