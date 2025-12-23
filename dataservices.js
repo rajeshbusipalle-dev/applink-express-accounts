@@ -158,34 +158,7 @@ async function upsertLAER(req,applinkContext, laerPayload) {
      */
     /* Working with Unit Of Work Example */
 
-    /*
-
-    const dataApi  = applinkContext.org.dataApi;
-
-    const testLAERPL = {
-        Id: 'aIK4O000000IRb0WAG',  // Correct field name
-        Total_Expiring_Maintenance_ACV__c: 50000.00,
-        Total_Expiring_LAAS_ACV__c: 1000,
-        Name: 'Total HEROKU TEST 2',
-        Opportunity__c: '0064O00000ugpzlQAA',
-        Type__c: 'New',
-        };
-
-        try {
-        const result = await dataApi.update(
-            'LAER_Table__c',  // Salesforce object API name
-            testLAERPL        // Fields to update
-        );
-
-        console.log('Update result:', result);
-
-        } catch (err) {
-        console.log('Update failed:', err);
-        }
-        console.log('Update successful:', result);
-        return result;
-        */
-
+    /* Working code with DataApi.update */
 
        const updates = 
         {
@@ -205,6 +178,7 @@ async function upsertLAER(req,applinkContext, laerPayload) {
     const result = await applinkContext.org.dataApi.update(updates);
          console.log('Update successful:', result);
     return result;
+    /* Working code with DataApi.update */
                
 }
 
