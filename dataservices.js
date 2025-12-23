@@ -136,7 +136,10 @@ async function upsertLAER(applinkContext, laerPayload) {
 
         if (normalizedPayload.Id) {
             console.log('@@@ upsertLAER_laerPayload in update:',normalizedPayload);
-        return sf.update('LAER_Table__c', normalizedPayload);
+        return sf.update('LAER_Table__c',
+                        normalizedPayload.Id,   // ✅ recordId
+                        normalizedPayload       // ✅ fields
+                        );
         }
 
         return sf.create('LAER_Table__c', normalizedPayload);
