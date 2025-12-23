@@ -187,17 +187,19 @@ async function upsertLAER(req,applinkContext, laerPayload) {
         */
 
 
-        const updates = [{
-        sobject: 'LAER_Table__c',
-        fields: {
-            id: 'aIK4O000000IRb0WAG',
-            total_expiring_maintenance_acv__c: 50000.00,
-            total_expiring_laas_acv__c: 1000,
-            name: 'Total HEROKU TEST',
-            opportunity__c: '0064O00000ugpzlQAA',
-            type__c: 'New'
-          }
-        }];
+       const updates = [
+        {
+            type: 'LAER_Table__c',
+            fields: {
+            Id: 'aIK4O000000IRb0WAG',   // MUST be capital Id
+            Total_Expiring_Maintenance_ACV__c: 50000.00,
+            Total_Expiring_LAAS_ACV__c: 1000,
+            Name: 'Total HEROKU TEST',
+            Opportunity__c: '0064O00000ugpzlQAA',
+            Type__c: 'New'
+            }
+        }
+        ];
     
     // Access dataApi from the app context (Heroku Applink)
     const result = await applinkContext.org.dataApi.update(updates);
