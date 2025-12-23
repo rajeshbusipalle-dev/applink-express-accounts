@@ -161,9 +161,14 @@ async function calculateLAERTotalfields({
                             ? opp.subQueryResults.laer_tables__r.records[0].fields
                             : null;
         console.log('@@@ Existing LAER : ',existing);
+
+        laerRecord = opp.subQueryResults.laer_tables__r.records[0];
+        console.log('@@@ Existing LAER laerRecord : ',laerRecord);
+        /*
         laerRecord = existing
             ? existing
             : { Name: 'Total', Opportunity__c: oppId };
+            */
     } else {
         const contract = await fetchContractLAER({
             applinkContext,
@@ -184,7 +189,7 @@ async function calculateLAERTotalfields({
     }
 
     Object.assign(
-        laerRecord,
+        laerRecord.fields,
         mapLaerTotalWithValue,
         mapLaerTotalWithInstallValue
     );

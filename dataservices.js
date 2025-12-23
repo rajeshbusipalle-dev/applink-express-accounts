@@ -130,7 +130,7 @@ async function upsertLAER(applinkContext, laerPayload) {
 
     const dataApi  = applinkContext.org.dataApi;
     // Create a new UnitOfWork instance
-    const uow = dataApi.createUnitOfWork();
+    const uow = dataApi.newUnitOfWork();
 
     // The record payload to create
     const recordPayload  = normalizeLAERPayload(laerPayload);
