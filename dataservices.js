@@ -161,15 +161,12 @@ async function upsertLAER(applinkContext, laerPayload) {
     const dataApi  = applinkContext.org.dataApi;
 
     const testLAERPL = {
-          type: 'LAER_Table__c',
-          fields: {
-            id: 'aIK4O000000IRb0WAG',
+            Id: 'aIK4O000000IRb0WAG',
             total_expiring_maintenance_acv__c: 50000.00,
             total_expiring_laas_acv__c: 1000,
             name: 'Total HEROKU TEST 2',
             opportunity__c: '0064O00000ugpzlQAA',
-            type__c: 'New',
-          },
+            type__c: 'New'
         };
 
     const result = await dataApi.update(
